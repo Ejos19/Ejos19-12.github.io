@@ -1,0 +1,29 @@
+/* styles.css — estilos adicionales si quieres personalizar más allá de Bulma */
+
+/* Pequeño ajuste para el contenedor del formulario */
+.container.m-4 {
+  max-width: 900px;
+}
+
+/* Mensajes (si quieres mover los estilos fuera del style inline en el HTML) */
+#message {
+  transition: opacity 0.25s ease;
+}
+
+.hero-body {
+  background-image: url("asset/Tealca\ v1.2.png");
+  background-size: contain;
+  background-position-x: center;
+}
+
+.hero.is-primary .title {
+  font-family: cursive;
+  color: #ffffff;
+  text-align: center;
+  font-size: 29px;
+}
+
+.title {
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #0061a8;
+}

@@ -1,0 +1,456 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Este es el logotipo que se refleja en las pestañas -->
+    <link href="asset/Logo Tealca HD 2.png" rel="icon" sizes="180x180" />
+    <!-- Enlace a Bulma (framework CSS). Mantengo el original para que el layout y clases funcionen. -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <title>Prospecciones de Ventas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Si quieres estilos personalizados puedes enlazar styles.css aquí:
+         <link rel="stylesheet" href="styles.css" />
+    -->
+  </head>
+  <body>
+    <!-- Hero (encabezado visual) de Bulma -->
+    <section class="hero is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <!-- Título principal -->
+          <h1 class="title">PROSPECCIONES</h1>
+        </div>
+      </div>
+    </section>
+    <!-- Campo: Elección - switch para cambiar entre modos Ingresar / Consultar-Editar -->
+    <div class="field">
+      <label class="label">Elección</label>
+      <div class="control">
+        <div class="select">
+          <select id="modeSelect" name="ELECCION">
+            <option value="ingresar">Ingresar (nuevo registro)</option>
+            <option value="consultar">
+              Consultar / Editar (buscar por RIF)
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles para buscar por RIF (se muestran solo en modo consultar/editar) -->
+    <div id="rif-controls" class="field" style="display: none">
+      <label class="label">Buscar por RIF</label>
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <input
+            id="rifSearch"
+            class="input"
+            type="text"
+            placeholder="Introduce RIF y presiona Buscar"
+          />
+        </div>
+        <div class="control">
+          <button id="search-button" class="button is-info" type="button">
+            Buscar
+          </button>
+        </div>
+        <div class="control">
+          <button id="clear-search" class="button is-light" type="button">
+            Limpiar
+          </button>
+        </div>
+      </div>
+      <p class="help">
+        Si se encuentra el RIF, el formulario se poblá y podrá actualizarse con
+        el botón "Actualizar".
+      </p>
+    </div>
+    <!-- Formulario principal con id="form" para ser referenciado desde JS -->
+    <form id="form" class="container m-4 pl-4">
+      <!-- Campo: fecha de prospeccion -->
+      <div class="field">
+        <label class="label">FECHA</label>
+        <div class="control">
+          <input
+            class="input"
+            type="date"
+            placeholder="Fecha de Prospeccion"
+            name="FECHA"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: Region -->
+      <div class="field">
+        <label class="label">REGION</label>
+        <div class="control">
+          <!-- select dropdown. name="REGION" selecciona la region de la prospeccion -->
+          <div class="select is-fullwidth">
+            <select class="input" name="REGION">
+              <option value="" disabled selected>Selecciona una región</option>
+              <option value="CAPITAL">CAPITAL</option>
+              <option value="CENTRO">CENTRO</option>
+              <option value="ANDES">ANDES</option>
+              <option value="OCCIDENTE">OCCIDENTE</option>
+              <option value="ORIENTE">ORIENTE</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: EJECUTIVO -->
+      <div class="field">
+        <label class="label">EJECUTIVO</label>
+        <div class="control">
+          <!-- select dropdown. name="EJECUTIVO" selecciona la region de la prospeccion -->
+          <div class="select is-fullwidth">
+            <select class="input" name="EJECUTIVO">
+              <option value="" disabled selected>
+                Selecciona una EJECUTIVO
+              </option>
+              <option value="JOSE VALLEJO">JOSE VALLEJO</option>
+              <option value="LISETH GARCIA">LISETH GARCIA</option>
+              <option value="MIGLEYSI ROYERO">MIGLEYSI ROYERO</option>
+              <option value="MAYERLING BENAVIDES">MAYERLING BENAVIDES</option>
+              <option value="MARIAN PEREZ">MARIAN PEREZ</option>
+              <option value="MARGILENY BRICEÑO">MARGILENY BRICEÑO</option>
+              <option value="YENDLER CRIOLLO">YENDLER CRIOLLO</option>
+              <option value="GISBELY MANOSALVA">GISBELY MANOSALVA</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: Rif (nota: ingresa el rif de cliente a prospectar) -->
+      <div class="field">
+        <label class="label">RIF</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el rif de cliente a prospectar"
+            name="RIF"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: RAZON_SOCIAL (nota: ingresa la razon social de rif de cliente a prospectar) -->
+      <div class="field">
+        <label class="label">RAZON_SOCIAL</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa la razon social del rif del cliente a prospectar"
+            name="RAZON_SOCIAL"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: SERVICIO (nota: ingresa el servicio ofrecido al cliente) -->
+      <div class="field">
+        <label class="label">SERVICIO</label>
+        <div class="control">
+          <!-- select dropdown. name="SERVICIO" selecciona el tipo de servicio -->
+          <div class="select is-fullwidth">
+            <select class="input" name="SERVICIO">
+              <option value="" disabled selected>Selecciona un SERVICIO</option>
+              <option value="TARIFA PLANA">TARIFA PLANA</option>
+              <option value="CREDITO EMPRESARIAL">CREDITO EMPRESARIAL</option>
+              <option value="POR DEFINIR">POR DEFINIR</option>
+              <option value="FLETE DIRECTO">FLETE DIRECTO</option>
+              <option value="TEALCLIC">TEALCLIC</option>
+              <option value="CREDIEXPRESS">CREDIEXPRESS</option>
+              <option value="ECOMMERCE">ECOMMERCE</option>
+              <option value="INTERNACIONAL">INTERNACIONAL</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: PROPUESTA (nota: ingresa la propuesta ofrecida al cliente) -->
+      <div class="field">
+        <label class="label">PROPUESTA</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa la propuesta ofrecida al cliente"
+            name="PROPUESTA"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: SRM (nota: ingresa el SRM ofrecido al cliente) -->
+      <div class="field">
+        <label class="label">SRM</label>
+        <div class="control">
+          <!-- select dropdown. name="SRM" selecciona el SRM -->
+          <div class="select is-fullwidth">
+            <select class="input" name="SRM">
+              <option value="" disabled selected>Selecciona un SRM</option>
+              <option value="1%">1%</option>
+              <option value="2%">2%</option>
+              <option value="3%">3%</option>
+              <option value="SIN SRM">SIN SRM</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: DESCUENTO (nota: ingresa el DESCUENTO ofrecido al cliente) -->
+      <div class="field">
+        <label class="label">DESCUENTO</label>
+        <div class="control">
+          <!-- select dropdown. name="DESCUENTO" selecciona el DESCUENTO -->
+          <div class="select is-fullwidth">
+            <select class="input" name="DESCUENTO">
+              <option value="" disabled selected>
+                Selecciona un DESCUENTO
+              </option>
+              <option value="N/A">N/A</option>
+              <option value="20%">20%</option>
+              <option value="25%">25%</option>
+              <option value="30%">30%</option>
+              <option value="35%">35%</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: ESTATUS (nota: ingresa el ESTATUS de la prospeccion) -->
+      <div class="field">
+        <label class="label">ESTATUS</label>
+        <div class="control">
+          <!-- select dropdown. name="ESTATUS" selecciona el ESTATUS -->
+          <div class="select is-fullwidth">
+            <select class="input" name="ESTATUS">
+              <option value="" disabled selected>Selecciona un ESTATUS</option>
+              <option value="LEADS">LEADS</option>
+              <option value="PROSPECTO">PROSPECTO</option>
+              <option value="EN PROCESO DE CAPTACION">
+                EN PROCESO DE CAPTACION
+              </option>
+              <option value="CAPTADO">CAPTADO</option>
+              <option value="NO CAPTADO">NO CAPTADO</option>
+              <option value="TRANSFERIDOS">TRANSFERIDOS</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: fecha de captacion, momento en el que el cliente acepta -->
+      <div class="field">
+        <label class="label">FECHACAP</label>
+        <div class="control">
+          <input
+            class="input"
+            type="date"
+            placeholder="Fecha de captacion"
+            name="FECHACAP"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: CODIGOCLIENTE (nota: ingresa el CODIGOCLIENTE asignado) -->
+      <div class="field">
+        <label class="label">CODIGOCLIENTE</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el CODIGOCLIENTE asignado"
+            name="CODIGOCLIENTE"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: RANGOKG (nota: ingresa el RANGOKG en el que este cliente se maneja) -->
+      <div class="field">
+        <label class="label">RANGOKG</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="RANGOKG en el que este cliente se maneja"
+            name="RANGOKG"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: CODIGOF (nota: ingresa el CODIGOF de la franquicia asignada) -->
+      <div class="field">
+        <label class="label">CODIGOF</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="CODIGOF de la franquicia asignada"
+            name="CODIGOF"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: CATEGORIA -->
+      <div class="field">
+        <label class="label">CATEGORIA</label>
+        <div class="control">
+          <!-- select dropdown. name="CATEGORIA" selecciona la CATEGORIA de la prospeccion -->
+          <div class="select is-fullwidth">
+            <select class="input" name="CATEGORIA">
+              <option value="" disabled selected>Selecciona una región</option>
+              <option value="BANCOS">BANCOS</option>
+              <option value="SEGUROS">SEGUROS</option>
+              <option value="FARMACIA">FARMACIA</option>
+              <option value="TELECOMUNICACIONES">TELECOMUNICACIONES</option>
+              <option value="RESPUESTOS">RESPUESTOS</option>
+              <option value="FABRICAS Y ALIMENTOS">FABRICAS Y ALIMENTOS</option>
+              <option value="FERRETERIAS">FERRETERIAS</option>
+              <option value="ENTIDADES GU">ENTIDADES GU</option>
+              <option value="OTROS">OTROS</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo: Upload Document -->
+      <div class="field">
+        <label class="label">Upload Document (Optional)</label>
+        <div class="control">
+          <!-- Estructura de archivo con clases Bulma -->
+          <div class="file has-name is-fullwidth">
+            <label class="file-label">
+              <!-- input de tipo file con id="fileInput" para manejarlo desde JS -->
+              <input
+                class="file-input"
+                type="file"
+                name="theFile"
+                id="fileInput"
+                accept="*/*"
+              />
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label"> Choose a file… </span>
+              </span>
+              <!-- Mostrar nombre de archivo seleccionado -->
+              <span class="file-name" id="fileNameDisplay">
+                No file selected
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo oculto para almacenar el nombre del archivo (si se necesita) -->
+      <input type="hidden" name="filename" id="actualFilename" />
+
+      <!-- Textarea para OBSERVACIONES adicionales -->
+      <div class="field">
+        <label class="label">OBSERVACIONES</label>
+        <div class="control">
+          <textarea
+            class="textarea"
+            placeholder="ingresa la informacion adicional/observaciones"
+            name="OBSERVACIONES"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Campo: Contacto (nota: ingresa el nombre de contacto del cliente) -->
+      <div class="field">
+        <label class="label">CONTACTO</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el nombre de contacto del cliente"
+            name="CONTACTO"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: Telefono del Contacto (nota: ingresa el telefono de contacto del cliente) -->
+      <div class="field">
+        <label class="label">TLF_CONTACTO</label>
+        <div class="control">
+          <input
+            class="input"
+            type="number"
+            placeholder="ingresa el telefono de contacto del cliente"
+            name="TLF_CONTACTO"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: Correo del Contacto (nota: ingresa el Corre de contacto del cliente) -->
+      <div class="field">
+        <label class="label">CORREO_CONTACTO</label>
+        <div class="control">
+          <input
+            class="input"
+            type="email"
+            placeholder="ingresa el Corre de contacto del cliente"
+            name="CORREO_CONTACTO"
+          />
+        </div>
+      </div>
+
+      <!-- Botones: submit y cancelar -->
+      <div class="field is-grouped">
+        <div class="control">
+          <!-- botón submit con id para mostrar estado loading desde JS -->
+          <button class="button is-primary" type="submit" id="submit-button">
+            Sign Up
+          </button>
+        </div>
+        <div class="control">
+          <!-- botón cancelar que resetea el form y texto del fileName -->
+          <button
+            class="button is-danger"
+            type="button"
+            onclick="
+              document.getElementById('form').reset();
+              document.getElementById('fileNameDisplay').textContent =
+                'No file selected';
+            "
+          >
+            Cancel
+          </button>
+        </div>
+        <!-- Botón para actualizar existente (solo visible en modo consultar/editar y después de buscar) -->
+        <div class="control" id="update-control" style="display: none">
+          <button id="update-button" class="button is-warning" type="button">
+            Actualizar
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Mensajes de estado (oculto por defecto). JS lo mostrará/ocultará -->
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: bold;
+      "
+    ></div>
+
+    <!-- Enlaza tu código JS en un archivo separado app.js (recomendado):
+         <script src="app.js"></script>
+         Aquí se mantiene inline para reflejar el original, pero cuando separemos lo moveremos a app.js.
+    -->
+    <script src="app.js"></script>
+    <script src="editor.js"></script>
+  </body>
+</html>
