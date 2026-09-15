@@ -303,7 +303,7 @@
         <div class="control">
           <!-- select dropdown. name="CATEGORIA" selecciona la CATEGORIA de la prospeccion -->
           <div class="select is-fullwidth">
-            <select class="input" name="CATEGORIA">
+            <select class="input" id="select-categoria" name="CATEGORIA">
               <option value="" disabled selected>Selecciona una región</option>
               <option value="BANCOS">BANCOS</option>
               <option value="SEGUROS">SEGUROS</option>
@@ -316,6 +316,23 @@
               <option value="OTROS">OTROS</option>
             </select>
           </div>
+        </div>
+      </div>
+
+      <!-- Campo Adicional: Especificar OTROS (Oculto por defecto) -->
+      <div
+        class="field"
+        id="campo-especificar-otros"
+        style="display: none; margin-top: 10px"
+      >
+        <label class="label">Especificar otra categoría</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            id="input-categoria-otro"
+            placeholder="Escribe la categoría"
+          />
         </div>
       </div>
 
@@ -452,5 +469,12 @@
     -->
     <script src="app.js"></script>
     <script src="editor.js"></script>
+    
+        <!-- Vinculación del archivo JavaScript para categoria OTROS -->
+    <script src="categoria.js"></script>
+
+    <!-- Módulo de Validación de Campos Obligatorios -->
+    <script src="obligatorio.js"></script>
+    
   </body>
 </html>
