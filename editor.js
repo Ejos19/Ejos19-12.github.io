@@ -51,6 +51,9 @@
     "TLF_CONTACTO",
     "CONTACTO",
     "CORREO_CONTACTO",
+    "CIUDAD",
+    "ESTADO",
+    "ZONA",
   ];
 
   // Inicializar estado
