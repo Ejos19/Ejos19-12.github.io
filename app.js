@@ -33,6 +33,9 @@ const INSERT_EDITABLE_FIELDS = [
   "TLF_CONTACTO",
   "CONTACTO",
   "CORREO_CONTACTO",
+  "CIUDAD",
+  "ESTADO",
+  "ZONA",
 ];
 
 // Aplica las restricciones de edición para el modo "ingresar".
